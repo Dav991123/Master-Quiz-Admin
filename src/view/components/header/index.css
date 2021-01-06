@@ -1,0 +1,12 @@
+.header-content {
+    padding: 15px 20px;
+    background-color: #1976d2;
+    justify-content: space-between;
+    display: flex;
+    color: #fff;
+    box-shadow: -2px 4px 28px rgba(0,0,0,0.25), 0 10px 10px rgb(0 0 0 / 12%);
+
+}
+.header-content  img {
+    width: 120px;
+}
