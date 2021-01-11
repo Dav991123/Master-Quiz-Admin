@@ -16,10 +16,7 @@ const Header = () => {
     return (
         <div className={'header-content'}>
             <Link href={'https://www.basic.am/'}>
-                <img 
-                    src={'https://www.basic.am/static/media/white-logo.e806c809.svg'}
-                    alt={'basic'}
-                />
+              
             </Link>
 
             <div className={'logout-content'}>
