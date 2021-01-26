@@ -13,15 +13,14 @@ const AddQuiz = () => {
 
     return (
         <div className="add_quiz_content">
-                <IconButton
-                    onClick={handleCreateNewQuiz}
-                    aria-label="show more"
-                >
-                  <AddIcon
-                       style={{ fontSize: 150 }} 
-                  />
-                </IconButton>
-
+            <IconButton
+                onClick={handleCreateNewQuiz}
+                aria-label="show more"
+            >
+                <AddIcon
+                    style={{ fontSize: 150 }} 
+                />
+            </IconButton>
         </div>   
     )
 };

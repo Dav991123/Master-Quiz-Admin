@@ -5,3 +5,22 @@
     margin: auto;
     margin-top: 10px;
 }
+
+.question_data_type_content {
+    margin: 20px 0;
+}
+.question_data {
+    margin-bottom: 20px;
+}
+
+.untitled_question_content {
+
+}
+.untitled_question_content h3 {
+    margin: 40px 0 16px;
+    font-size: 20px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1.235;
+    letter-spacing: 0.00735em;
+}
