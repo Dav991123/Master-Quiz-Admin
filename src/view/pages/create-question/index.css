@@ -1,0 +1,7 @@
+.create_content {
+    max-width: 1000px;
+    border: 1px solid black;
+    padding: 20px;
+    margin: auto;
+    margin-top: 10px;
+}
