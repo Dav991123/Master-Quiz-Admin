@@ -2,11 +2,11 @@ import React, { useState, useEffect, memo } from 'react';
 import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs/components/prism-core';
 
-const CodeEditor = ({ questionCode, isOnChange, fontSize, onSetQuestionState }) => {
+const CodeEditor = ({ questionCode, isOnChange, onSetQuestionState }) => {
     
     const styleEditor = {
         fontFamily: '"Fira code", "Fira Mono", monospace',
-        fontSize: 15
+        fontSize: 20
     }
 
     return (

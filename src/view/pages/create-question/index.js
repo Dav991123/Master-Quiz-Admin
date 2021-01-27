@@ -7,10 +7,9 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import CodeEditor from '../../components/codeEditor';
+import AddQuizConfig from './addQuizConfig';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
-import './index.css';
-
 import './index.css';
 
 const questionType  = {
@@ -46,6 +45,30 @@ const CreateQuestion = () => {
     const [questions, setQuestions] = useState([addQuizDataModel]);
     const [questionDataType, setQuestionDataType] = useState(questionType.code);
 
+    console.log(questions, 'questions')
+
+    const handleChangeAnswer = (quizIndex, optionIndex, e) => {
+        const { value } = e.target;
+        const answerList = questions[quizIndex].answerList;
+        answerList[optionIndex] = value;
+        const questionsModel = [...questions];
+        questionsModel[quizIndex].answerList = answerList;
+        setQuestions([...questionsModel])
+    };
+
+    const handleCodeEditorChange = (value, quizIndex) => {
+        const quizData = [...questions];
+        quizData[quizIndex].questionData = `${value}`;
+        setQuestions([...quizData])
+    };
+
+    const handleChangeQuizDescription = (e, quizIndex) => {
+        const { value } = e.target
+        const quizData = [...questions];
+        quizData[quizIndex].quizDescription = value;
+        setQuestions([...quizData])
+    }
+
     const questionDataModel = {
         [questionType.img]: () => (
             <TextField 
@@ -54,14 +77,16 @@ const CreateQuestion = () => {
             />
         ),
         [questionType.code]: (quizIndex) => (
-            <CodeEditor 
-                isOnChange={true}
-                fontSize={20}
-                questionCode={questions[quizIndex].questionData} 
-                onSetQuestionState={value => {
-                    
-                }}
-            />
+            <div className="code_editor">
+                <CodeEditor 
+                    isOnChange={true}
+                    fontSize={20}
+                    questionCode={questions[quizIndex].questionData} 
+                    onSetQuestionState={value => {
+                        handleCodeEditorChange(value, quizIndex)
+                    }}
+                />
+            </div>
         ),
         [questionType.text] : () => (
             <TextField 
@@ -74,25 +99,21 @@ const CreateQuestion = () => {
         )
     };
 
-    
-    const handleChangeAnswer = (quizIndex, optionIndex, e) => {
-        const { value } = e.target;
-        console.log(value, 'value');
-
-        const data = questions[quizIndex].answerList;
-      
-        data[optionIndex] = value;
-
-        console.log(data, 'data')
-       setQuestions(prevData => {
-           
-       })
+    const handleAddQuestion = () => {
+        setQuestions([
+            ...questions,
+            addQuizDataModel
+        ])
     };
-
 
     return (
         <div className="create_question">
+            <AddQuizConfig 
+                handleAddQuestion={handleAddQuestion}
+            />
+
             <div className="create_content">
+
                 {
                     questions.map((quiz, quizIndex) => {
                         return (
@@ -139,6 +160,7 @@ const CreateQuestion = () => {
                                         rows={3}
                                         defaultValue="Default Value"
                                         variant="outlined"
+                                        onChange={e => handleChangeQuizDescription(e, quizIndex)}
                                     />
                                 </div>
 
