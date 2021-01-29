@@ -34,7 +34,6 @@ const addQuizDataModel = {
 const useStyles = makeStyles((theme) => ({
     root: {
       '& .MuiTextField-root': {
-        margin: theme.spacing(1),
         width: '100%',
       },
     },
@@ -42,14 +41,13 @@ const useStyles = makeStyles((theme) => ({
 
 const CreateQuestion = () => {
     const classes = useStyles();
-    const [questions, setQuestions] = useState([addQuizDataModel]);
+    const [questions, setQuestions] = useState([{...addQuizDataModel}]);
     const [questionDataType, setQuestionDataType] = useState(questionType.code);
 
-    console.log(questions, 'questions')
-
     const handleChangeAnswer = (quizIndex, optionIndex, e) => {
+        console.log(quizIndex, 'quizIndex')
         const { value } = e.target;
-        const answerList = questions[quizIndex].answerList;
+        const answerList = [...questions[quizIndex].answerList];
         answerList[optionIndex] = value;
         const questionsModel = [...questions];
         questionsModel[quizIndex].answerList = answerList;
@@ -69,6 +67,10 @@ const CreateQuestion = () => {
         setQuestions([...quizData])
     }
 
+    const handleSend = () => {
+        console.log(questions);
+    };
+    
     const questionDataModel = {
         [questionType.img]: () => (
             <TextField 
@@ -102,13 +104,14 @@ const CreateQuestion = () => {
     const handleAddQuestion = () => {
         setQuestions([
             ...questions,
-            addQuizDataModel
+            {...addQuizDataModel}
         ])
     };
 
     return (
         <div className="create_question">
             <AddQuizConfig 
+                handleSend={handleSend}
                 handleAddQuestion={handleAddQuestion}
             />
 
@@ -117,7 +120,14 @@ const CreateQuestion = () => {
                 {
                     questions.map((quiz, quizIndex) => {
                         return (
-                            <form className={classes.root} noValidate autoComplete="off">
+                            <div className="create_quiz_content">
+
+                                <span className="section_number_info">
+                                   Section {quizIndex + 1}
+                                </span>
+                                <div className="top_content">
+                                </div>
+                                <form className={classes.root} noValidate autoComplete="off" >
                                
                                <div className="question_data_type_content">
                                     <FormControl component="fieldset">
@@ -145,11 +155,13 @@ const CreateQuestion = () => {
 
                                             </RadioGroup>
                                     </FormControl>
-                               </div>
 
-                                <div className="question_data">
-                                    { questionDataModel[questionDataType](quizIndex) }
-                                </div>
+                                    
+                                    <div className="question_data">
+                                        { questionDataModel[questionDataType](quizIndex) }
+                                    </div>
+
+                               </div>
 
 
                                 <div>
@@ -187,6 +199,7 @@ const CreateQuestion = () => {
                                     
                                 </div>
                             </form>
+                            </div>
                         )
                     })
                 }
