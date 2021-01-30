@@ -14,4 +14,4 @@ var firebaseConfig = {
 export const base = firebase.initializeApp(firebaseConfig);
 export const database = firebase.database();
 
-export const rootCourses = database.ref('/courses');
+export const rootQuestions = database.ref('/questions');

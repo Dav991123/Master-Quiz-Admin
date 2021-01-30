@@ -7,6 +7,13 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import CodeEditor from '../../components/codeEditor';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+// import { database } from '../../../../core/firebase/base';
+import { database } from '../../../core/firebase/base';
+
 import AddQuizConfig from './addQuizConfig';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
@@ -26,9 +33,9 @@ const addQuizDataModel = {
         '',
         '',
         '',
-        ''
+        '',
     ],
-    correct_answer: ''
+    correct_answer: []
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +52,6 @@ const CreateQuestion = () => {
     const [questionDataType, setQuestionDataType] = useState(questionType.code);
 
     const handleChangeAnswer = (quizIndex, optionIndex, e) => {
-        console.log(quizIndex, 'quizIndex')
         const { value } = e.target;
         const answerList = [...questions[quizIndex].answerList];
         answerList[optionIndex] = value;
@@ -54,12 +60,32 @@ const CreateQuestion = () => {
         setQuestions([...questionsModel])
     };
 
+    const handlePushCorrectAnswer = (quizIndex, optionIndex) => {
+        const questionsData = questions;
+        questionsData[quizIndex].correct_answer = [optionIndex];
+        setQuestions([...questionsData])      
+    };
+
+
     const handleCodeEditorChange = (value, quizIndex) => {
         const quizData = [...questions];
         quizData[quizIndex].questionData = `${value}`;
         setQuestions([...quizData])
     };
 
+    const handleSetImgSrc = (value, quizIndex) => {
+        const quizData = [...questions];
+        quizData[quizIndex].questionData = value;
+        setQuestions([...quizData])
+    };
+
+    const handleSetText = (value, quizIndex) => {
+        const quizData = [...questions];
+        quizData[quizIndex].questionData = value;
+        setQuestions([...quizData])
+    };
+
+    
     const handleChangeQuizDescription = (e, quizIndex) => {
         const { value } = e.target
         const quizData = [...questions];
@@ -69,13 +95,28 @@ const CreateQuestion = () => {
 
     const handleSend = () => {
         console.log(questions);
+        database.ref('/questions').child('JavaScript').set({
+            ...questions
+        })
     };
     
+
+    // const createCourse = () => {
+    //     const { coursesType, ...courseData } = values;
+    //     database.ref(`/courses/${language}`).child(coursesType).set({
+    //       ...courseData
+    //     })
+    //     .then(() => {
+    //       setIsOpenModal(false);
+    //       setLanguage(null)
+    //     })
+    //   };
     const questionDataModel = {
-        [questionType.img]: () => (
+        [questionType.img]: (quizIndex) => (
             <TextField 
                 id="standard-basic" 
                 label="img src"
+                onChange={e => handleSetImgSrc(e.target.value, quizIndex)}
             />
         ),
         [questionType.code]: (quizIndex) => (
@@ -90,13 +131,14 @@ const CreateQuestion = () => {
                 />
             </div>
         ),
-        [questionType.text] : () => (
+        [questionType.text] : (quizIndex) => (
             <TextField 
                 id="outlined-basic" 
                 label="Text" 
                 variant="outlined"
                 multiline
                 rows={2}
+                onChange={e => handleSetText(e.target.value, quizIndex)}
             />
         )
     };
@@ -170,7 +212,6 @@ const CreateQuestion = () => {
                                         label="Quiz Description"
                                         multiline
                                         rows={3}
-                                        defaultValue="Default Value"
                                         variant="outlined"
                                         onChange={e => handleChangeQuizDescription(e, quizIndex)}
                                     />
@@ -178,13 +219,29 @@ const CreateQuestion = () => {
 
 
                                 <div className="untitled_question_content">
+                                    <div className="x">
                                     <h3>Untitled Question</h3>
+                                    </div>
                                     
                                     {
                                         quiz.answerList.map((item, optionIndex) => {
                                           return (
                                             <div className="option_list">
                                                 <div>
+
+                                                    <div className="correct_answer_button_content">
+                                                        <Button 
+                                                            onClick={() => {
+                                                                handlePushCorrectAnswer(quizIndex, optionIndex)
+                                                            }}
+                                                            variant={questions[quizIndex].correct_answer.includes(optionIndex) ? 'contained' : 'outlined'} 
+                                                            color={`primary`} 
+                                                            size="small"
+                                                        >
+                                                        {optionIndex + 1}
+                                                        </Button>
+                                                    </div>
+                                        
                                                     <TextField 
                                                         id="standard-basic" 
                                                         label={`Option ${optionIndex + 1}`}
