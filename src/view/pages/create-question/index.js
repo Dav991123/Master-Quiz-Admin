@@ -11,9 +11,11 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
-// import { database } from '../../../../core/firebase/base';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import QuestionHeader from './questionHeader/';
 import { database, rootQuestions } from '../../../core/firebase/base';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import AddQuizConfig from './addQuizConfig';
 import 'prismjs/components/prism-clike';
@@ -49,11 +51,16 @@ const useStyles = makeStyles((theme) => ({
 
 
 const CreateQuestion = () => {
+    const dt = new Date();
     const classes = useStyles();
     const [questions, setQuestions] = useState([{...addQuizDataModel}]);
     const [questionDataType, setQuestionDataType] = useState(questionType.code);
-    const [quizTitle, setQuizTitle] = useState('');
-    const [quizDescription, setQuizDescription] = useState('');
+    const [quizDataInfo, setQuizDataInfo] = useState({
+        imgUrl: '',
+        description: '',
+        title: '',
+        dt: `${dt.getFullYear()}/${(dt.getMonth() + 1)}/${dt.getDate()}`,
+    })
 
     const handleChangeAnswer = (quizIndex, optionIndex, e) => {
         const { value } = e.target;
@@ -97,14 +104,12 @@ const CreateQuestion = () => {
     }
 
     const handleSend = () => {
-        const dt = new Date();
+       
         const autoId = rootQuestions.push().key;
     
         database.ref('/questions').child(autoId).set({
-            title: quizTitle,
-            description: quizDescription,
-            questionsList: questions,
-            dt: `${dt.getFullYear()}/${(dt.getMonth() + 1)}/${dt.getDate()}` 
+            ...quizDataInfo,
+            questionsList: questions
         })
         .then(resp => {
             console.log(resp, 'resp')
@@ -158,11 +163,9 @@ const CreateQuestion = () => {
     };
     return (
         <div className="create_question">
-            <QuestionHeader 
-                quizTitle={quizTitle}
-                setQuizTitle={setQuizTitle}
-                quizDescription={quizDescription}
-                setQuizDescription={setQuizDescription}
+            <QuestionHeader
+                quizDataInfo={quizDataInfo}
+                setQuizDataInfo={setQuizDataInfo}
             />
 
             <AddQuizConfig 
@@ -179,6 +182,14 @@ const CreateQuestion = () => {
 
                                 <span className="section_number_info">
                                    Section {quizIndex + 1}
+                                </span>
+
+                                <span className="remove_quiz_content">
+                                    <Tooltip title="Delete">
+                                        <IconButton aria-label="delete">
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </Tooltip>
                                 </span>
 
                                 <div className="top_content">

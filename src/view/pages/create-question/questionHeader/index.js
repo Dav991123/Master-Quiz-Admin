@@ -13,11 +13,14 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { storage } from '../../../../core/firebase/base';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
+import LoopIcon from '@material-ui/icons/Loop';
 import './index.css';
 
-
-const QuestionHeader = ({quizTitle, setQuizTitle, quizDescription, setQuizDescription}) => {
+const QuestionHeader = ({setQuizDataInfo, quizDataInfo}) => {
     const [image, setImage] = useState(null);
+    const [loading, setLoading] = useState(false);
     const useStyles = makeStyles((theme) => ({
         root: {
           '& .MuiTextField-root': {
@@ -34,8 +37,33 @@ const QuestionHeader = ({quizTitle, setQuizTitle, quizDescription, setQuizDescri
         }
     };
 
+    const handleChangeTitle = e => {
+        const { value } = e.target;
+        setQuizDataInfo(prev => ({
+            ...prev,
+            title: value,
+        }))
+    };
+
+    const handleChangeDescription = e => {
+        const { value } = e.target;
+        setQuizDataInfo(prev => ({
+            ...prev,
+            description: value,
+        }))
+    };
+
+    const handleSetImgUrl = imgUrl => {
+        setLoading(false);
+        setQuizDataInfo(prev => ({
+            ...prev,
+            imgUrl
+        }))
+    };
+
     useEffect(() => {
         if(image !== null) {
+            setLoading(true);
             const uploadImg = storage.ref(`images/${image.name}`).put(image);
             uploadImg.on(
                 'state_changed',
@@ -48,9 +76,7 @@ const QuestionHeader = ({quizTitle, setQuizTitle, quizDescription, setQuizDescri
                     .ref('images')
                     .child(image.name)
                     .getDownloadURL()
-                    .then((url) => {
-                        console.log(url)
-                    })
+                    .then(handleSetImgUrl)
                 }
             )
 
@@ -61,10 +87,13 @@ const QuestionHeader = ({quizTitle, setQuizTitle, quizDescription, setQuizDescri
         <div className="add_question_header">
             <form className={classes.root} noValidate autoComplete="off">
                 <TextField 
+                    rows={1}
+                    id="outlined-multiline-static"
                     placeholder="Quiz Title" 
-                    defaultValue="Quiz Title"
-                    value={quizTitle}
-                    onChange={e => setQuizTitle(e.target.value)}
+                    multiline
+                    variant="outlined"
+                    value={quizDataInfo.title}
+                    onChange={handleChangeTitle}
                 />
 
                 <TextField
@@ -72,9 +101,10 @@ const QuestionHeader = ({quizTitle, setQuizTitle, quizDescription, setQuizDescri
                     label="Form Description"
                     multiline
                     rows={1}
-                    quizDescription={quizDescription}
                     variant="outlined"
-                    onChange={e => setQuizDescription(e.target.value)}
+                    value={quizDataInfo.description}
+
+                    onChange={handleChangeDescription}
                 />
 
 
@@ -84,15 +114,22 @@ const QuestionHeader = ({quizTitle, setQuizTitle, quizDescription, setQuizDescri
                             id={'fileInput'}
                             onChange={handleFileInputChange}
                         />
-                    <label
-                        for="fileInput"
-                    >
-                        <div>
-                            <span>Upload Img</span>
-                            <CloudUploadIcon />
-                        </div>
+
+                
+                    <label for="fileInput">
+                        {
+                            loading ? (
+                                <div>
+                                    loading...
+                                </div>
+                            ): (
+                                <div>
+                                    <span>Upload Img</span>
+                                    <CloudUploadIcon />
+                                </div>
+                            )
+                        }
                     </label>
-                    
                 </div>
             </form>
         </div>

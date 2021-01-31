@@ -94,3 +94,9 @@
 .add_question_header form {
     padding: 20px;
 }
+.remove_quiz_content {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
