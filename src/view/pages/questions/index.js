@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -17,6 +17,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AddQuiz from './addQuiz';
 import Grid from '@material-ui/core/Grid';
+import { database } from '../../../core/firebase/base';
+
 
 import './index.css';
 
@@ -45,69 +47,93 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Courses = () => {
-  // const add = () => {
-  //   const autoId = rootCourses.push().key
-  //   rootCourses.child(autoId).set({
-  //     first_name: 'njk'
-  //   });
-  // }
-
   const classes = useStyles();
-
   const [expanded, setExpanded] = React.useState(false);
+  const [quizData, setQuizData] = useState([]);
+  const [isLoading, setIsLoading] = useState({
+    getQuiz: false
+  });
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  
+  useEffect(() => {
+    setIsLoading({
+      ...isLoading,
+      getQuiz: true
+    });
 
+    database.ref('/questions').on('value', e => {
+      const data = Object.values(e.val()) 
+      setQuizData(data);
+      setIsLoading({
+        ...isLoading,
+        getQuiz: false
+      })
+    });
+
+  }, []);
+
+
+
+  console.log(quizData, 'quizData');
   return (
     <div className="quiz_list_content">
       <div className="content list">
-
+     
       <Grid container alignItems="center" spacing={2}>
           <Grid item >
             <AddQuiz />
           </Grid>
 
-          <Grid item >
-          <Card className={classes.root}>
-            <CardHeader
-              avatar={
-                <Avatar aria-label="recipe" className={classes.avatar}>
-                  R
-                </Avatar>
-              }
-              action={
-                <IconButton aria-label="settings">
-                  <MoreVertIcon />
-                </IconButton>
-              }
-              title="Shrimp and Chorizo Paella"
-              subheader="September 14, 2016"
-            />
-            <CardMedia
-              className={classes.media}
-              image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png"
-              title="Paella dish"
-            />
-              <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon />
-                </IconButton>
-                
-                <IconButton
-                  className={clsx(classes.expand, {
-                    [classes.expandOpen]: expanded,
-                  })}
-                  onClick={handleExpandClick}
-                  aria-expanded={expanded}
-                  aria-label="show more"
-                >
-                  <ExpandMoreIcon />
-                </IconButton>
-              </CardActions>
-          </Card>
-          </Grid>
+          {
+            quizData.map((item, index) => {
+              return (
+                <Grid item >
+                <Card className={classes.root}>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label="recipe" className={classes.avatar}>
+                        {index + 1}
+                      </Avatar>
+                    }
+                    action={
+                      <IconButton aria-label="settings">
+                        <MoreVertIcon />
+                      </IconButton>
+                    }
+                    title={item.title}
+                    subheader={item.dt}
+                  />
+                  <CardMedia
+                    className={classes.media}
+                    image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png"
+                    title="Paella dish"
+                  />
+
+                    <CardActions disableSpacing>
+                      <IconButton aria-label="add to favorites">
+                        <FavoriteIcon />
+                      </IconButton>
+                      
+                      <IconButton
+                        className={clsx(classes.expand, {
+                          [classes.expandOpen]: expanded,
+                        })}
+                        onClick={handleExpandClick}
+                        aria-expanded={expanded}
+                        aria-label="show more"
+                      >
+                        <ExpandMoreIcon />
+                      </IconButton>
+                    </CardActions>
+                </Card>
+                </Grid>
+              )
+            })
+          }
+
       </Grid>
       </div>
     </div>

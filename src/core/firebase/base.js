@@ -13,5 +13,5 @@ var firebaseConfig = {
   // Initialize Firebase
 export const base = firebase.initializeApp(firebaseConfig);
 export const database = firebase.database();
-
+export const storage = firebase.storage();
 export const rootQuestions = database.ref('/questions');

@@ -12,7 +12,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 // import { database } from '../../../../core/firebase/base';
-import { database } from '../../../core/firebase/base';
+import QuestionHeader from './questionHeader/';
+import { database, rootQuestions } from '../../../core/firebase/base';
 
 import AddQuizConfig from './addQuizConfig';
 import 'prismjs/components/prism-clike';
@@ -46,10 +47,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
 const CreateQuestion = () => {
     const classes = useStyles();
     const [questions, setQuestions] = useState([{...addQuizDataModel}]);
     const [questionDataType, setQuestionDataType] = useState(questionType.code);
+    const [quizTitle, setQuizTitle] = useState('');
+    const [quizDescription, setQuizDescription] = useState('');
 
     const handleChangeAnswer = (quizIndex, optionIndex, e) => {
         const { value } = e.target;
@@ -65,7 +69,6 @@ const CreateQuestion = () => {
         questionsData[quizIndex].correct_answer = [optionIndex];
         setQuestions([...questionsData])      
     };
-
 
     const handleCodeEditorChange = (value, quizIndex) => {
         const quizData = [...questions];
@@ -94,23 +97,26 @@ const CreateQuestion = () => {
     }
 
     const handleSend = () => {
-        console.log(questions);
-        database.ref('/questions').child('JavaScript').set({
-            ...questions
+        const dt = new Date();
+        const autoId = rootQuestions.push().key;
+    
+        database.ref('/questions').child(autoId).set({
+            title: quizTitle,
+            description: quizDescription,
+            questionsList: questions,
+            dt: `${dt.getFullYear()}/${(dt.getMonth() + 1)}/${dt.getDate()}` 
         })
+        .then(resp => {
+            console.log(resp, 'resp')
+        });
+    };
+
+    const handleValidation = () => {
+        let isValid = false;
+
+        return handleValidation;
     };
     
-
-    // const createCourse = () => {
-    //     const { coursesType, ...courseData } = values;
-    //     database.ref(`/courses/${language}`).child(coursesType).set({
-    //       ...courseData
-    //     })
-    //     .then(() => {
-    //       setIsOpenModal(false);
-    //       setLanguage(null)
-    //     })
-    //   };
     const questionDataModel = {
         [questionType.img]: (quizIndex) => (
             <TextField 
@@ -148,10 +154,17 @@ const CreateQuestion = () => {
             ...questions,
             {...addQuizDataModel}
         ])
+ 
     };
-
     return (
         <div className="create_question">
+            <QuestionHeader 
+                quizTitle={quizTitle}
+                setQuizTitle={setQuizTitle}
+                quizDescription={quizDescription}
+                setQuizDescription={setQuizDescription}
+            />
+
             <AddQuizConfig 
                 handleSend={handleSend}
                 handleAddQuestion={handleAddQuestion}
@@ -167,6 +180,7 @@ const CreateQuestion = () => {
                                 <span className="section_number_info">
                                    Section {quizIndex + 1}
                                 </span>
+
                                 <div className="top_content">
                                 </div>
                                 <form className={classes.root} noValidate autoComplete="off" >
@@ -205,24 +219,22 @@ const CreateQuestion = () => {
 
                                </div>
 
-
                                 <div>
                                     <TextField
                                         id="outlined-multiline-static"
                                         label="Quiz Description"
                                         multiline
-                                        rows={3}
+                                        rows={2}
                                         variant="outlined"
                                         onChange={e => handleChangeQuizDescription(e, quizIndex)}
                                     />
                                 </div>
 
-
                                 <div className="untitled_question_content">
                                     <div className="x">
+                                    
                                     <h3>Untitled Question</h3>
                                     </div>
-                                    
                                     {
                                         quiz.answerList.map((item, optionIndex) => {
                                           return (
