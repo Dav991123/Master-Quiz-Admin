@@ -103,34 +103,35 @@ const QuestionHeader = ({setQuizDataInfo, quizDataInfo}) => {
                     rows={1}
                     variant="outlined"
                     value={quizDataInfo.description}
-
                     onChange={handleChangeDescription}
                 />
 
 
+             <div className="upload_img_avatar_content">
                 <div className="upload_img_content">
-                        <input 
-                            type="file"
-                            id={'fileInput'}
-                            onChange={handleFileInputChange}
-                        />
+                            <input 
+                                type="file"
+                                id={'fileInput'}
+                                onChange={handleFileInputChange}
+                            />
 
-                
-                    <label for="fileInput">
-                        {
-                            loading ? (
-                                <div>
-                                    loading...
-                                </div>
-                            ): (
-                                <div>
-                                    <span>Upload Img</span>
-                                    <CloudUploadIcon />
-                                </div>
-                            )
-                        }
-                    </label>
-                </div>
+                    
+                        <label for="fileInput">
+                            {
+                                loading ? (
+                                    <div>
+                                        loading...
+                                    </div>
+                                ): (
+                                    <div>
+                                        <span>Upload Img</span>
+                                        <CloudUploadIcon />
+                                    </div>
+                                )
+                            }
+                        </label>
+                    </div>
+                </div>    
             </form>
         </div>
     )

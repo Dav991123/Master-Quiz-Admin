@@ -16,6 +16,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import QuestionHeader from './questionHeader/';
 import { database, rootQuestions } from '../../../core/firebase/base';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { useStickyState } from '../../..//hooks/useStickyState';
 
 import AddQuizConfig from './addQuizConfig';
 import 'prismjs/components/prism-clike';
@@ -53,14 +54,15 @@ const useStyles = makeStyles((theme) => ({
 const CreateQuestion = () => {
     const dt = new Date();
     const classes = useStyles();
-    const [questions, setQuestions] = useState([{...addQuizDataModel}]);
+    const [questions, setQuestions] = useStickyState([{...addQuizDataModel}], 'questionsList');
+
     const [questionDataType, setQuestionDataType] = useState(questionType.code);
-    const [quizDataInfo, setQuizDataInfo] = useState({
+    const [quizDataInfo, setQuizDataInfo] = useStickyState({
         imgUrl: '',
         description: '',
         title: '',
         dt: `${dt.getFullYear()}/${(dt.getMonth() + 1)}/${dt.getDate()}`,
-    })
+    }, 'quizDataInfo')
 
     const handleChangeAnswer = (quizIndex, optionIndex, e) => {
         const { value } = e.target;
@@ -115,12 +117,6 @@ const CreateQuestion = () => {
             console.log(resp, 'resp')
         });
     };
-
-    const handleValidation = () => {
-        let isValid = false;
-
-        return handleValidation;
-    };
     
     const questionDataModel = {
         [questionType.img]: (quizIndex) => (
@@ -159,8 +155,8 @@ const CreateQuestion = () => {
             ...questions,
             {...addQuizDataModel}
         ])
- 
     };
+
     return (
         <div className="create_question">
             <QuestionHeader
@@ -237,6 +233,7 @@ const CreateQuestion = () => {
                                         multiline
                                         rows={2}
                                         variant="outlined"
+                                        value={quiz.quizDescription}
                                         onChange={e => handleChangeQuizDescription(e, quizIndex)}
                                     />
                                 </div>
