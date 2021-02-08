@@ -42,7 +42,7 @@ const QuestionHeader = ({setQuizDataInfo, quizDataInfo}) => {
         setQuizDataInfo(prev => ({
             ...prev,
             title: value,
-        }))
+        }));
     };
 
     const handleChangeDescription = e => {
@@ -50,7 +50,7 @@ const QuestionHeader = ({setQuizDataInfo, quizDataInfo}) => {
         setQuizDataInfo(prev => ({
             ...prev,
             description: value,
-        }))
+        }));
     };
 
     const handleSetImgUrl = imgUrl => {
@@ -58,7 +58,7 @@ const QuestionHeader = ({setQuizDataInfo, quizDataInfo}) => {
         setQuizDataInfo(prev => ({
             ...prev,
             imgUrl
-        }))
+        }));
     };
 
     useEffect(() => {

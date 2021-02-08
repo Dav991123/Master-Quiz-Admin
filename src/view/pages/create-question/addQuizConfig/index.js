@@ -6,35 +6,27 @@ import SendIcon from '@material-ui/icons/Send';
 import './index.css';
 
 const AddQuizConfig = ({ handleAddQuestion, handleSend }) => {
+
+    const handleAddButtonClick = () => {
+        handleAddQuestion();
+        setTimeout(() => {
+            const elem = document.getElementById('add_button_content');
+            elem && elem.scrollIntoView({
+              behavior: 'smooth',
+        });}, 0);
+    };
+    
     return (
         <div className="add_quiz_config">
             <div>
-{/*             
-                <div>
-                    <Tooltip 
-                        title="Send"
-                        placement="left"
-                    >
-                        <IconButton 
-                            aria-label="show more"
-                            onClick={handleSend}
-                        >
-                            <SendIcon
-                                style={{ fontSize: 20, color: 'green' }} 
-                            />
-                        </IconButton>
-                    </Tooltip>
-                </div> */}
-
-
-                <div>
+                <div id="add_button_content">
                     <Tooltip 
                         title="Add Question"
                         placement="top"
                     >
                         <IconButton 
                             aria-label="show more"
-                            onClick={handleAddQuestion}
+                            onClick={handleAddButtonClick}
                         >
                             <AddIcon
                                 style={{ fontSize: 20 }} 

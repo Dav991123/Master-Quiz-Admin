@@ -41,7 +41,7 @@ const addQuizDataModel = {
         '',
 
     ],
-    correct_answer: []
+    correct_answer: [0]
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -64,7 +64,6 @@ const CreateQuestion = () => {
         title: '',
         dt: `${dt.getFullYear()}/${(dt.getMonth() + 1)}/${dt.getDate()}`,
     }, 'quizDataInfo')
-
     
     const handleChangeAnswer = (quizIndex, optionIndex, e) => {
         const { value } = e.target;
@@ -267,20 +266,6 @@ const CreateQuestion = () => {
                                           return (
                                             <div className="option_list">
                                                 <div>
-
-                                                    {/* <div className="correct_answer_button_content">
-                                                        <Button 
-                                                            onClick={() => {
-                                                                handlePushCorrectAnswer(quizIndex, optionIndex)
-                                                            }}
-                                                            variant={questions[quizIndex].correct_answer.includes(optionIndex) ? 'contained' : 'outlined'} 
-                                                            color={`primary`} 
-                                                            size="small"
-                                                        >
-                                                        {optionIndex + 1}
-                                                        </Button>
-                                                    </div>
-                                         */}
                                                     <TextField 
                                                         id="standard-basic" 
                                                         label={`Option ${optionIndex + 1}`}
