@@ -21,9 +21,6 @@ const Header = () => {
                 <Menu />
                 <div className="quiz-link-content">
                     <Link href={'/'}>
-                        <CodeIcon 
-                            style={{ fontSize: 40 }} 
-                        />
                         Quiz Admin
                     </Link>
                 </div>

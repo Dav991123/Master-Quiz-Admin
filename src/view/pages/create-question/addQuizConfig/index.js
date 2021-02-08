@@ -9,7 +9,7 @@ const AddQuizConfig = ({ handleAddQuestion, handleSend }) => {
     return (
         <div className="add_quiz_config">
             <div>
-            
+{/*             
                 <div>
                     <Tooltip 
                         title="Send"
@@ -24,13 +24,13 @@ const AddQuizConfig = ({ handleAddQuestion, handleSend }) => {
                             />
                         </IconButton>
                     </Tooltip>
-                </div>
+                </div> */}
 
 
                 <div>
                     <Tooltip 
                         title="Add Question"
-                        placement="left"
+                        placement="top"
                     >
                         <IconButton 
                             aria-label="show more"
