@@ -58,7 +58,7 @@ const QuizOptionConfig = ({options, quizIndex, optionType, setOptionType, correc
 
     useEffect(() => {
         handlePushCorrectAnswer(quizIndex, [...correctAnswers])
-    }, [correctAnswers])
+    }, [correctAnswers]);
   
     const answerDropDown = {
         1: () => (
@@ -109,7 +109,6 @@ const QuizOptionConfig = ({options, quizIndex, optionType, setOptionType, correc
     }
 
     const classes = useStyles();
-    const [age, setAge] = React.useState('');
 
     return (
         <div className="quiz_option_config_content">

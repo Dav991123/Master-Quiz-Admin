@@ -16,11 +16,13 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 import LoopIcon from '@material-ui/icons/Loop';
+import ImgModal from './imgModal';
 import './index.css';
 
 const QuestionHeader = ({setQuizDataInfo, quizDataInfo}) => {
     const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
     const useStyles = makeStyles((theme) => ({
         root: {
           '& .MuiTextField-root': {
@@ -61,6 +63,9 @@ const QuestionHeader = ({setQuizDataInfo, quizDataInfo}) => {
         }));
     };
 
+    const handleOpenModal = () => {
+        setOpenModal(true);
+    }
     useEffect(() => {
         if(image !== null) {
             setLoading(true);
@@ -83,8 +88,16 @@ const QuestionHeader = ({setQuizDataInfo, quizDataInfo}) => {
         }
     }, [image]);
 
+
     return (
+        <>
+         <ImgModal 
+            openModal={openModal}
+            quizDataInfo={quizDataInfo}
+            setOpenModal={setOpenModal}
+         />
         <div className="add_question_header">
+           
             <form className={classes.root} noValidate autoComplete="off">
                 <TextField 
                     rows={1}
@@ -109,13 +122,14 @@ const QuestionHeader = ({setQuizDataInfo, quizDataInfo}) => {
 
              <div className="upload_img_avatar_content">
                 <div className="upload_img_content">
-                            <input 
-                                type="file"
-                                id={'fileInput'}
-                                onChange={handleFileInputChange}
-                            />
+                    <input 
+                        type="file"
+                        id={'fileInput'}
+                        onChange={handleFileInputChange}
+                    />
 
-                    
+
+                    <div>
                         <label for="fileInput">
                             {
                                 loading ? (
@@ -131,9 +145,24 @@ const QuestionHeader = ({setQuizDataInfo, quizDataInfo}) => {
                             }
                         </label>
                     </div>
+  
+                    {
+                        quizDataInfo.imgUrl && (
+                            <div>
+                                <Button 
+                                    variant="contained"
+                                    onClick={handleOpenModal}
+                                >
+                                    Show image 
+                                </Button>
+                            </div>
+                        )
+                    }
+                    </div>
                 </div>    
             </form>
         </div>
+        </>
     )
 };
 

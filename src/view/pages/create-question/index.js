@@ -169,8 +169,6 @@ const CreateQuestion = () => {
         )
     };
 
-    console.log(questions, 'questions');
-
     return (
         <div className="create_question">
             <QuestionHeader
