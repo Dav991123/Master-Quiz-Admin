@@ -49,12 +49,17 @@ function getStyles(name, personName, theme) {
 }
 
 const QuizOptionConfig = ({options, quizIndex, optionType, setOptionType, correctAnswer, handlePushCorrectAnswer}) => {
-    const [correctAnswers, setPersonName] = useState(correctAnswer);
+    const [correctAnswers, setCorrectAnswers] = useState(correctAnswer);
     const theme = useTheme();
 
     const handleChangeMultiple = (event) => {
-        setPersonName(event.target.value);
+        setCorrectAnswers(event.target.value);
+        if(optionType == 1) {
+            handlePushCorrectAnswer(quizIndex, [0]);
+            setCorrectAnswers([0]);
+        }
     };
+
 
     useEffect(() => {
         handlePushCorrectAnswer(quizIndex, [...correctAnswers])

@@ -75,9 +75,6 @@ const Courses = () => {
 
   }, []);
 
-
-
-  console.log(quizData, 'quizData');
   return (
     <div className="quiz_list_content">
       <div className="content list">

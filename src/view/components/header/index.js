@@ -1,9 +1,8 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuItem from '@material-ui/core/MenuItem';
 import { base } from '../../../core/firebase/base';
-import CodeIcon from '@material-ui/icons/Code';
+import { Link } from 'react-router-dom';
 import Menu from './menu';
 import './index.css';
 
@@ -20,7 +19,7 @@ const Header = () => {
             <div className="left-bar">
                 <Menu />
                 <div className="quiz-link-content">
-                    <Link href={'/'}>
+                    <Link to={'/'}>
                         Quiz Admin
                     </Link>
                 </div>

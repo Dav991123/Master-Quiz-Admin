@@ -9,6 +9,8 @@ const AddQuiz = () => {
 
     const handleCreateNewQuiz = () => {
         history.push("/create-question");
+        localStorage.removeItem('questionsList');
+        localStorage.removeItem('quizDataInfo')
     };
 
     return (
