@@ -5,7 +5,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import SendIcon from '@material-ui/icons/Send';
 import './index.css';
 
-const AddQuizConfig = ({ handleAddQuestion, handleSend }) => {
+const AddQuizConfig = ({ handleAddQuestion }) => {
 
     const handleAddButtonClick = () => {
         handleAddQuestion();

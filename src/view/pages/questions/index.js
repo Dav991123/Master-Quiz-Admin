@@ -18,6 +18,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AddQuiz from './addQuiz';
 import Grid from '@material-ui/core/Grid';
 import { database } from '../../../core/firebase/base';
+import classNames from 'classnames';
+
 
 
 import './index.css';
@@ -76,9 +78,8 @@ const Courses = () => {
   }, []);
 
   return (
-    <div className="quiz_list_content">
+    <div className="quiz_list_content ">
       <div className="content list">
-     
       <Grid container alignItems="center" spacing={2}>
           <Grid item >
             <AddQuiz />

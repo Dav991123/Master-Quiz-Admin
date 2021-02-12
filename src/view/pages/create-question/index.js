@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -7,19 +7,18 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import CodeEditor from '../../components/codeEditor';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import CopyrightIcon from '@material-ui/icons/Copyright';
 import Tooltip from '@material-ui/core/Tooltip';
+import SaveButton from './saveButton';
 import QuestionHeader from './questionHeader/';
 import { database, rootQuestions } from '../../../core/firebase/base';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useStickyState } from '../../..//hooks/useStickyState';
+import { useHistory } from 'react-router-dom';
 import AddQuizConfig from './addQuizConfig';
 import QuizOptionConfig from './quizOptionConfig';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import { ROUTE_CONSTANTS } from '../../../core/constants/routeConstants';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import './index.css';
@@ -58,11 +57,12 @@ const CreateQuestion = () => {
     const [questions, setQuestions] = useStickyState([{...addQuizDataModel}], 'questionsList');
     const [optionType, setOptionType] = useState(1);
     const [questionDataType, setQuestionDataType] = useState(questionType.code);
+    const history = useHistory()
     const [quizDataInfo, setQuizDataInfo] = useStickyState({
         imgUrl: '',
         description: '',
         title: '',
-        dt: `${dt.getFullYear()}/${(dt.getMonth() + 1)}/${dt.getDate()}`,
+        dt: `${dt.getFullYear()}/${(dt.getMonth() + 1)}/${dt.getDate()} : ${dt.toLocaleTimeString()}`,
     }, 'quizDataInfo')
     
     const handleChangeAnswer = (quizIndex, optionIndex, e) => {
@@ -115,18 +115,19 @@ const CreateQuestion = () => {
 
     const handleCopy = quizIndex => {
         const questionsData = [...questions];
-        questionsData.splice(quizIndex, 0, questionsData[quizIndex]);
+        questionsData.splice(quizIndex, 0, {...questionsData[quizIndex]});
         setQuestions([...questionsData])
     };
 
-    const handleSend = () => {
+    const handleSave = () => {
         const autoId = rootQuestions.push().key;
         database.ref('/questions').child(autoId).set({
             ...quizDataInfo,
             questionsList: questions
         })
         .then(resp => {
-            console.log(resp, 'resp')
+            console.log(resp, 'resp');
+            history.push(ROUTE_CONSTANTS.QUESTIONS)
         });
     };
     
@@ -136,6 +137,16 @@ const CreateQuestion = () => {
             {...addQuizDataModel}
         ])
     };
+
+    const saveButtonValidation = useMemo(() => {
+        let isValid = true;
+
+        if(quizDataInfo.title && quizDataInfo.description) { // && quizDataInfo.imgUrl
+            isValid = false
+        }
+        
+        return isValid;
+    }, [quizDataInfo]);
 
     const questionDataModel = {
         [questionType.img]: (quizIndex) => (
@@ -169,13 +180,18 @@ const CreateQuestion = () => {
         )
     };
 
-    console.log(questions, 'questions');
     return (
         <div className="create_question">
             <QuestionHeader
                 quizDataInfo={quizDataInfo}
                 setQuizDataInfo={setQuizDataInfo}
             />
+
+            <SaveButton 
+                handleSave={handleSave}
+                validation={saveButtonValidation}
+            />
+
             <div className="create_content">
 
                 {
@@ -190,7 +206,7 @@ const CreateQuestion = () => {
                                 <span className="remove_quiz_content">
                                     <Tooltip title="Duplicate" onClick={() => handleCopy(quizIndex)}>
                                         <IconButton aria-label="copy">
-                                            <CopyrightIcon />
+                                            <FileCopyIcon />
                                         </IconButton>
                                     </Tooltip>
 
@@ -286,7 +302,6 @@ const CreateQuestion = () => {
             </div>
 
             <AddQuizConfig 
-                handleSend={handleSend}
                 handleAddQuestion={handleAddQuestion}
             />
         </div>

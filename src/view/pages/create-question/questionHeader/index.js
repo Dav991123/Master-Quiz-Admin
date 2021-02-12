@@ -66,6 +66,7 @@ const QuestionHeader = ({setQuizDataInfo, quizDataInfo}) => {
     const handleOpenModal = () => {
         setOpenModal(true);
     }
+    
     useEffect(() => {
         if(image !== null) {
             setLoading(true);
@@ -97,7 +98,6 @@ const QuestionHeader = ({setQuizDataInfo, quizDataInfo}) => {
             setOpenModal={setOpenModal}
          />
         <div className="add_question_header">
-           
             <form className={classes.root} noValidate autoComplete="off">
                 <TextField 
                     rows={1}

@@ -1,12 +1,22 @@
 .header-content {
-    padding: 15px 20px;
+    /* padding: 15px 20px; */
+    height: 70px;
     background-color: rgb(103, 58, 183);
     justify-content: space-between;
     display: flex;
     color: #fff;
     align-items: center;
     box-shadow: -2px 4px 28px rgba(0,0,0,0.25), 0 10px 10px rgb(0 0 0 / 12%);
-
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+    transition: top 0.3s;
+}
+.header-button-content {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
 }
 .quiz-link-content {
     display: flex;
