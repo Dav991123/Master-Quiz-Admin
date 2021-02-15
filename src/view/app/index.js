@@ -9,7 +9,7 @@ const App = (props) => {
         <>
             <Header />
 
-            <div style={{marginTop: '100px'}}>
+            <div className="app_content">
                 <Suspense fallback={<p>Loading...</p>}>
                     <DefaultRoutes {...props}/>
                 </Suspense>

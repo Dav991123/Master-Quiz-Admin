@@ -76,16 +76,34 @@ const Courses = () => {
     });
 
   }, []);
-
+  
   return (
     <div className="quiz_list_content ">
-      <div className="content list">
-      <Grid container alignItems="center" spacing={2}>
-          <Grid item >
-            <AddQuiz />
-          </Grid>
+      <div className="content">
+            <div>
+              <AddQuiz />
+            </div>
 
-          {
+            <div>
+              
+            </div>
+
+            <div>
+
+            </div>
+
+            <div>
+
+            </div>
+
+            <div>
+
+            </div>
+
+            <div>
+              
+            </div>
+          {/* {
             quizData.map((item, index) => {
               return (
                 <Grid item >
@@ -130,9 +148,8 @@ const Courses = () => {
                 </Grid>
               )
             })
-          }
+          } */}
 
-      </Grid>
       </div>
     </div>
   )

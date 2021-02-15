@@ -1,0 +1,18 @@
+@import './_variables.scss';
+
+body {
+    margin: 0;
+}
+* {
+    font-family: sans-serif;
+}
+
+.content {
+    max-width: $content_max_width;
+    margin: auto;
+}
+
+
+.app_content {
+    margin-top: $app_content_top_margin;
+}

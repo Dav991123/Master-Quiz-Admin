@@ -21,7 +21,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { ROUTE_CONSTANTS } from '../../../core/constants/routeConstants';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
-import './index.css';
+import './index.scss';
 
 const questionType  = {
     img: '1',
