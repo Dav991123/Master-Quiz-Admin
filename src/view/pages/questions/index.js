@@ -15,14 +15,14 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import DeleteIcon from '@material-ui/icons/Delete';
 import AddQuiz from './addQuiz';
 import Grid from '@material-ui/core/Grid';
 import { database } from '../../../core/firebase/base';
+import Tooltip from '@material-ui/core/Tooltip';
 import classNames from 'classnames';
-
-
-
-import './index.css';
+import CardQuiz from './cardQuiz';
+import './index.scss';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,16 +49,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Courses = () => {
-  const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
   const [quizData, setQuizData] = useState([]);
   const [isLoading, setIsLoading] = useState({
     getQuiz: false
   });
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
   
   useEffect(() => {
     setIsLoading({
@@ -68,6 +62,7 @@ const Courses = () => {
 
     database.ref('/questions').on('value', e => {
       const data = Object.values(e.val()) 
+      console.log(data, 'data')
       setQuizData(data);
       setIsLoading({
         ...isLoading,
@@ -76,80 +71,30 @@ const Courses = () => {
     });
 
   }, []);
+
   
   return (
-    <div className="quiz_list_content ">
-      <div className="content">
+    <div className="quiz_list_content">
+      <div className="content content__list_grid">
             <div>
               <AddQuiz />
             </div>
-
-            <div>
-              
-            </div>
-
-            <div>
-
-            </div>
-
-            <div>
-
-            </div>
-
-            <div>
-
-            </div>
-
-            <div>
-              
-            </div>
-          {/* {
-            quizData.map((item, index) => {
-              return (
-                <Grid item >
-                <Card className={classes.root}>
-                  <CardHeader
-                    avatar={
-                      <Avatar aria-label="recipe" className={classes.avatar}>
-                        {index + 1}
-                      </Avatar>
-                    }
-                    action={
-                      <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                      </IconButton>
-                    }
-                    title={item.title}
-                    subheader={item.dt}
-                  />
-                  <CardMedia
-                    className={classes.media}
-                    image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png"
-                    title="Paella dish"
-                  />
-
-                    <CardActions disableSpacing>
-                      <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
-                      </IconButton>
-                      
-                      <IconButton
-                        className={clsx(classes.expand, {
-                          [classes.expandOpen]: expanded,
-                        })}
-                        onClick={handleExpandClick}
-                        aria-expanded={expanded}
-                        aria-label="show more"
-                      >
-                        <ExpandMoreIcon />
-                      </IconButton>
-                    </CardActions>
-                </Card>
-                </Grid>
-              )
-            })
-          } */}
-
+            {
+              quizData.map((item, index) => {
+                return (
+                  <div>
+                    <CardQuiz 
+                      id={item.id}
+                      title={item.title}
+                      number={index + 1}
+                      imgUrl={item.imgUrl}
+                      creationDate={item.dt}
+                      description={item.description}
+                    />
+                  </div>
+                )  
+              })
+            }
       </div>
     </div>
   )

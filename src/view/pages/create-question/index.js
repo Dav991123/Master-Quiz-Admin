@@ -123,6 +123,7 @@ const CreateQuestion = () => {
         const autoId = rootQuestions.push().key;
         database.ref('/questions').child(autoId).set({
             ...quizDataInfo,
+            id: autoId,
             questionsList: questions
         })
         .then(resp => {
