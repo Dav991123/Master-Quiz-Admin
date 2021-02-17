@@ -1,7 +1,9 @@
 import React, { useState, useEffect, memo } from 'react';
 import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs/components/prism-core';
-import './index.css';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
+import './index.scss';
 
 const CodeEditor = ({ questionCode, isOnChange, onSetQuestionState }) => {
     

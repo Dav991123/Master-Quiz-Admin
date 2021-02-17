@@ -52,7 +52,7 @@ const CardQuiz = ({id, title, number, creationDate, imgUrl, description}) => {
   const history = useHistory();
   const handleDeleteQuiz = () => database.ref(`/questions/${id}`).remove();
 
-  const handleEditQuiz = () => history.push(`${ROUTE_CONSTANTS.EDIT_QUESTION}/?id=${id}`);
+  const handleEditQuiz = () => history.push(`${ROUTE_CONSTANTS.EDIT_QUESTION}/${id}`);
 
   return (
     <Card className={classes.root}>

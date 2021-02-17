@@ -1,0 +1,98 @@
+@import '../../../../scss/_mixins.scss';
+@import '../../../../scss/_variables.scss';
+
+.create_content {
+    max-width: 1000px;
+    padding: 20px;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.untitled_question_content {
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    margin-top: 20px;
+    padding: 10px;
+
+    h3 {
+        font-size: 20px;
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        font-weight: 400;
+        line-height: 1.235;
+        letter-spacing: 0.00735em;
+    }
+
+}
+
+.create_quiz_content {
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid $primary_color;
+    position: relative;
+    margin-bottom: 20px;
+    .question_data_type_content {
+        @include box-shadow(0, 1px, 3px, rgba(0, 0, 0, 0.3));    border: 1px solid #dadce0;
+        border-radius: 8px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        padding: 20px;
+        margin-top: 50px;
+    }
+}
+
+.top_content {
+    background-color:$primary_color;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    height: 10px;
+    left: -1px;
+    position: absolute;
+    top: -1px;
+    width: calc(100% + 2px);
+}
+
+.section_number_info {
+    background-color:$primary_color;
+    color: #fff;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 5px;
+    padding: 10px 20px;
+    border-bottom-right-radius: 10px;
+}
+
+.question_data_type_content {
+    margin: 20px 0;
+}
+
+.option_list > div {
+    display: flex;
+    align-items: center;
+}
+
+.correct_answer_button_content {
+    transform: translate(-5px, 10px);
+    padding-right: 10px;
+}
+
+.add_question_header {
+    @include box-shadow(0, 1px, 3px, rgba(0, 0, 0, 0.3)); 
+    margin: 10px auto;
+    max-width: 1000px;
+    border-radius: 10px;
+}
+
+.add_question_header form {
+    padding: 20px;
+}
+
+.remove_quiz_content {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}

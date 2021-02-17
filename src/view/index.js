@@ -8,7 +8,7 @@ import IsNotAuthLayer from '../routing/layers/IsNotAuthLayer';
 import IsAuthLayer from '../routing/layers/isAuthLayer';
 import defineGuards from '../routing/defineGuards';
 import App from './app';
-import Splash from './components/splash';
+import Splash from './components/global/splash';
 
 const AppWrapper = () => {
     const initialState = {

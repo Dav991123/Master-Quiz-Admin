@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuItem from '@material-ui/core/MenuItem';
-import { base } from '../../../core/firebase/base';
+import { base } from '../../../../core/firebase/base';
 import { Link } from 'react-router-dom';
 import Menu from './menu';
 import { useLocation } from  'react-router-dom';
-import { ROUTE_CONSTANTS } from '../../../core/constants/routeConstants';
+import { ROUTE_CONSTANTS } from '../../../../core/constants/routeConstants';
 import './index.css';
 
 const Header = () => {

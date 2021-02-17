@@ -17,7 +17,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 import LoopIcon from '@material-ui/icons/Loop';
 import ImgModal from './imgModal';
-import './index.css';
+import './index.scss';
 
 const QuestionHeader = ({setQuizDataInfo, quizDataInfo}) => {
     const [image, setImage] = useState(null);
@@ -85,7 +85,6 @@ const QuestionHeader = ({setQuizDataInfo, quizDataInfo}) => {
                     .then(handleSetImgUrl)
                 }
             )
-
         }
     }, [image]);
 
@@ -97,21 +96,20 @@ const QuestionHeader = ({setQuizDataInfo, quizDataInfo}) => {
             quizDataInfo={quizDataInfo}
             setOpenModal={setOpenModal}
          />
-        <div className="add_question_header">
+        <div className="question_header">
             <form className={classes.root} noValidate autoComplete="off">
                 <TextField 
                     rows={1}
                     id="outlined-multiline-static"
                     placeholder="Quiz Title" 
                     multiline
-                    variant="outlined"
+                    variant="outlined"h
                     value={quizDataInfo.title}
                     onChange={handleChangeTitle}
                 />
 
                 <TextField
                     id="outlined-multiline-static"
-                    label="Form Description"
                     multiline
                     rows={1}
                     variant="outlined"

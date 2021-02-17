@@ -18,7 +18,7 @@ const rootRoutes = [
     },
 
     { 
-        path: '/edit-question',    
+        path: '/edit-question/:quizId',    
         component: EditQuestion ,    
         exact: true,
     },

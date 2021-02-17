@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import DefaultRoutes from '../../routing/DefaultRoutes';
-import Header from '../components/header';
+import Header from '../components/global/header';
 import { withRouter } from 'react-router-dom';
 
 const App = (props) => {

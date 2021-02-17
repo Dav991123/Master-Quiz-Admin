@@ -1,8 +1,8 @@
 import React, { memo, useEffect, useContext, Suspense, useState } from 'react';
-import AdminContext from '../../../context/adminContext';
-import {base} from '../../../core/firebase/base';
+import AdminContext from '../../../../context/adminContext';
+import {base} from '../../../../core/firebase/base';
 import { makeStyles } from '@material-ui/core/styles';
-import { SET_IS_AUTH } from '../../../core/constants/actionTypes';
+import { SET_IS_AUTH } from '../../../../core/constants/actionTypes';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withRouter } from 'react-router-dom';
 
