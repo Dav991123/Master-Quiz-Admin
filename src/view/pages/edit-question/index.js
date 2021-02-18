@@ -62,11 +62,7 @@ const EditQuestion = (props) => {
     
     return (
         <div className="create_question">
-            <button onClick={() => handleClickVariant('success')}>
-                onClick
-            </button>
 
-            
             <QuestionHeader
                 quizDataInfo={quizDataInfo}
                 setQuizDataInfo={setQuizDataInfo}

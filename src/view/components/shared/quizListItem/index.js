@@ -33,7 +33,7 @@ const QuizListItem = ({questions, setQuestions}) => {
     const classes = useStyles();
     const [questionDataType, setQuestionDataType] = useState(questionType.code);
     const [optionType, setOptionType] = useState(1);
-
+    const [optionCount, setOptionCount] = useState(4);
         
     const handleChangeAnswer = (quizIndex, optionIndex, e) => {
         const { value } = e.target;
@@ -89,6 +89,12 @@ const QuizListItem = ({questions, setQuestions}) => {
         quizData[quizIndex].quizDescription = value;
         setQuestions([...quizData])
     }
+
+    const handleSetOptionCount = (optionCount, quizIndex) => {
+        setOptionCount(optionCount);
+        const quizData = [...questions];
+        quizData[quizIndex].answerList = Array.from({length: optionCount}, () => '')
+    };
 
     const questionDataModel = {
         [questionType.img]: (quizIndex) => (
@@ -200,10 +206,13 @@ const QuizListItem = ({questions, setQuestions}) => {
 
                                 <div className="untitled_question_content">
                                     <QuizOptionConfig 
+                                        optionCount={optionCount}
                                         optionType={optionType}
                                         setOptionType={setOptionType}
                                         options={quiz.answerList}
                                         quizIndex={quizIndex}
+                                        setOptionCount={handleSetOptionCount}
+                                        answerListCount={questions[quizIndex].answerList.length}
                                         handlePushCorrectAnswer={handlePushCorrectAnswer}
                                         correctAnswer={questions[quizIndex].correct_answer}
                                     />

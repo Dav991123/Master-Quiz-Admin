@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(3),
     },
 }));
-
+const optionsCountList = [3, 4, 5];
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -48,7 +48,7 @@ function getStyles(name, personName, theme) {
   };
 }
 
-const QuizOptionConfig = ({options, quizIndex, optionType, setOptionType, correctAnswer, handlePushCorrectAnswer}) => {
+const QuizOptionConfig = ({options, quizIndex, optionType, setOptionCount, answerListCount, setOptionType, correctAnswer, handlePushCorrectAnswer}) => {
     const [correctAnswers, setCorrectAnswers] = useState(correctAnswer);
     const theme = useTheme();
 
@@ -59,7 +59,6 @@ const QuizOptionConfig = ({options, quizIndex, optionType, setOptionType, correc
             setCorrectAnswers([0]);
         }
     };
-
 
     useEffect(() => {
         handlePushCorrectAnswer(quizIndex, [...correctAnswers])
@@ -121,6 +120,22 @@ const QuizOptionConfig = ({options, quizIndex, optionType, setOptionType, correc
             <h3>Untitled Question</h3>
 
             <div>
+                <FormControl className={classes.formControl}>
+                    <InputLabel id="demo-simple-select-label">Option Count</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={answerListCount}
+                        onChange={e => setOptionCount(e.target.value, quizIndex)}
+                    >
+                        {
+                            optionsCountList.map(item => (
+                                <MenuItem value={item}>{item}</MenuItem>
+                            ))
+                        }
+                    </Select>
+                </FormControl>
+
                 {answerDropDown[optionType]()}
 
                 <FormControl className={classes.formControl}>
