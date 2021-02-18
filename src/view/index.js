@@ -8,6 +8,7 @@ import IsNotAuthLayer from '../routing/layers/IsNotAuthLayer';
 import IsAuthLayer from '../routing/layers/isAuthLayer';
 import defineGuards from '../routing/defineGuards';
 import App from './app';
+import { SnackbarProvider } from 'notistack';
 import Splash from './components/global/splash';
 
 const AppWrapper = () => {
@@ -18,16 +19,18 @@ const AppWrapper = () => {
     const [state, dispatch] = useReducer(reducers, initialState);
     
     return (
-        <AdminContext.Provider value={{state, dispatch}}>
-            <BrowserRouter>    
-                <Splash>
-                    <Switch>
-                        <Route exact path='/login' render={props => defineGuards([IsNotAuthLayer], LoginPage, props)}/>
-                        <Route path='/' render={props => defineGuards([IsAuthLayer], App, props)}/>
-                    </Switch>
-                </Splash>
-            </BrowserRouter>
-        </AdminContext.Provider>
+        <SnackbarProvider maxSnack={3}>
+            <AdminContext.Provider value={{state, dispatch}}>
+                <BrowserRouter>    
+                    <Splash>
+                        <Switch>
+                            <Route exact path='/login' render={props => defineGuards([IsNotAuthLayer], LoginPage, props)}/>
+                            <Route path='/' render={props => defineGuards([IsAuthLayer], App, props)}/>
+                        </Switch>
+                    </Splash>
+                </BrowserRouter>
+            </AdminContext.Provider>
+        </SnackbarProvider>
     )
 };
 export default AppWrapper;
