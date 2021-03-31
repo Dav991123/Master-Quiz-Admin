@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useContext, Suspense, useState } from 'react';
 import AdminContext from '../../../../context/adminContext';
-import {base} from '../../../../core/firebase/base';
+import { base } from '../../../../core/firebase/base';
 import { makeStyles } from '@material-ui/core/styles';
 import { SET_IS_AUTH } from '../../../../core/constants/actionTypes';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -33,7 +33,7 @@ const Splash = ({children, history}) => {
                 })
                 setIsLoading(false)
             }else {
-                history.push('/login')
+                history.push('/login');
                 dispatch({
                     type: SET_IS_AUTH,
                     payload: false

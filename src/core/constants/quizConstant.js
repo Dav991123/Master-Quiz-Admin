@@ -8,6 +8,7 @@ export const addQuizDataModel = {
     quizDescription: '',
     questionData: ``,
     questionType: questionType.code,
+    comment: '',
     answerList: [
         '',
         '',

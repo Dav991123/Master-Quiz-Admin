@@ -12,7 +12,6 @@ import QuizOptionConfig from '../quizOptionConfig';
 import Radio from '@material-ui/core/Radio';
 import FormLabel from '@material-ui/core/FormLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
-
 import './index.scss';
 
 const questionType  = {
@@ -33,7 +32,7 @@ const QuizListItem = ({questions, setQuestions}) => {
     const classes = useStyles();
     const [questionDataType, setQuestionDataType] = useState(questionType.code);
     const [optionType, setOptionType] = useState(1);
-    const [optionCount, setOptionCount] = useState(4);
+    const [optionCount, setOptionCount] = useState(2);
         
     const handleChangeAnswer = (quizIndex, optionIndex, e) => {
         const { value } = e.target;
@@ -89,6 +88,13 @@ const QuizListItem = ({questions, setQuestions}) => {
         quizData[quizIndex].quizDescription = value;
         setQuestions([...quizData])
     }
+
+    const handleChangeQuizComment = (e, quizIndex) => {
+        const { value } = e.target
+        const quizData = [...questions];
+        quizData[quizIndex].comment = value;
+        setQuestions([...quizData])
+    };
 
     const handleSetOptionCount = (optionCount, quizIndex) => {
         setOptionCount(optionCount);
@@ -189,9 +195,11 @@ const QuizListItem = ({questions, setQuestions}) => {
                                     <div className="question_data">
                                         { questionDataModel[questionDataType](quizIndex) }
                                     </div>
-
                                </div>
 
+                        
+
+                            <div className="dec_comment_content">
                                 <div>
                                     <TextField
                                         id="outlined-multiline-static"
@@ -203,6 +211,20 @@ const QuizListItem = ({questions, setQuestions}) => {
                                         onChange={e => handleChangeQuizDescription(e, quizIndex)}
                                     />
                                 </div>
+
+                                <div>
+                                    <TextField
+                                        id="outlined-multiline-static"
+                                        label="Comment"
+                                        multiline
+                                        rows={2}
+                                        variant="outlined"
+                                        value={quiz.comment}
+                                        onChange={e => handleChangeQuizComment(e, quizIndex)}
+                                    />
+                                </div>
+                            </div>
+                        
 
                                 <div className="untitled_question_content">
                                     <QuizOptionConfig 
