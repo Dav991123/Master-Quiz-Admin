@@ -9,7 +9,6 @@ import AddQuizConfig from '../../components/shared/addQuizConfig';
 import { addQuizDataModel } from '../../../core/constants/quizConstant';
 import { useSnackbar } from 'notistack';
 
-
 const EditQuestion = (props) => {
     const quizId = props.match.params.quizId;
     const { enqueueSnackbar } = useSnackbar();
@@ -56,13 +55,12 @@ const EditQuestion = (props) => {
     const handleAddQuestion = () => {
         setQuestions([
             ...questions,
-            {...addQuizDataModel}
+            {...addQuizDataModel, id: questions.length + 1}
         ])
     };
     
     return (
         <div className="create_question">
-
             <QuestionHeader
                 quizDataInfo={quizDataInfo}
                 setQuizDataInfo={setQuizDataInfo}

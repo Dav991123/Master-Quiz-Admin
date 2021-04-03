@@ -37,7 +37,7 @@ const CreateQuestion = () => {
     const handleAddQuestion = () => {
         setQuestions([
             ...questions,
-            {...addQuizDataModel}
+            {...addQuizDataModel, id: questions.length + 1}
         ])
     };
 

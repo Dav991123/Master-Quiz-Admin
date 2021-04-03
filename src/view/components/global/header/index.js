@@ -30,8 +30,7 @@ const Header = () => {
                 headerRef.current.style.top = '-100px';
             }
         }
-
-      }, [scrolling]);
+    }, [scrolling]);
 
     const { pathname } = useLocation();
     return (
