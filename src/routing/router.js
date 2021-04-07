@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 const Questions = lazy(() => import('../view/pages/questions'));
 const CreateQuestion = lazy(() => import('../view/pages/create-question'));
 const EditQuestion = lazy(() => import('../view/pages/edit-question'));
+const Users = lazy(() => import('../view/pages/users'));
 
 const rootRoutes = [
     { 
@@ -23,6 +24,11 @@ const rootRoutes = [
         exact: true,
     },
 
+    { 
+        path: '/users',    
+        component: Users ,    
+        exact: true,
+    },
     {    
         path: '/',    
         component: () => <Redirect to= '/questions'/>,    

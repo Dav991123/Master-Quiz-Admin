@@ -10,6 +10,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import { useHistory } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles({
@@ -21,7 +22,15 @@ const useStyles = makeStyles({
     },
   });
 
+const menuList = [
+  {
+    id: 1,
+    title: 'Users',
+    path: '/users'
+  }
+]
 const Menu = () => {
+    const history = useHistory();
     const classes = useStyles();
     const [state, setState] = React.useState({
       left: false,
@@ -32,7 +41,7 @@ const Menu = () => {
           return;
         }
         setState({ ...state, [anchor]: open });
-      };
+    };
     
     const list = (anchor) => (
         <div
@@ -47,22 +56,22 @@ const Menu = () => {
         >
 
           <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem button key={text}>
+            {menuList.map((item, index) => (
+              <ListItem button key={item.id} onClick={() => history.push(item.path)}>
                 <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={item.title} />
               </ListItem>
             ))}
           </List>
           <Divider />
-          <List>
+          {/* <List>
             {['All mail', 'Trash', 'Spam'].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
             ))}
-          </List>
+          </List> */}
         </div>
     );
 
