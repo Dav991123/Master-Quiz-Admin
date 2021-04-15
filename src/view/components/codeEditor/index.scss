@@ -2,12 +2,19 @@
 .editor-content {
     @include box-shadow(0, 1px, 3px, rgba(0, 0, 0, 0.3));
     background-color: #011627;
-    border-radius: 10px;
+    border-radius: 10px !important;
     color: #fff;
     div {
         font-family: sans-serif !important;
+
     }
     textarea {
         outline: none;
+    border-radius: 10px;
+
     }
+}
+.editor-content {
+    border-radius: 10px !important;
+
 }

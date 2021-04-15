@@ -1,25 +1,43 @@
 import React, { useState, useEffect, memo } from 'react';
-import Editor from 'react-simple-code-editor';
-import { highlight, languages } from 'prismjs/components/prism-core';
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-javascript';
+import Highlight, { defaultProps } from 'prism-react-renderer';
+import theme from 'prism-react-renderer/themes/nightOwl';
+import Editor from 'react-simple-code-editor'
 import './index.scss';
+
+
+const styles = {
+    root: {
+        fontSize: '18px',
+      boxSizing: 'border-box',
+      fontFamily: '"Dank Mono", "Fira Code", monospace',
+      ...theme.plain
+    }
+}
 
 const CodeEditor = ({ questionCode, isOnChange, onSetQuestionState }) => {
     
-    const styleEditor = {
-        fontFamily: '"Fira code", "Fira Mono", monospace',
-        fontSize: 20
-    }
+    const highlight = code => (
+        <Highlight {...defaultProps} theme={theme} code={code} language="jsx">
+          {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            <>
+              {tokens.map((line, i) => (
+                <div {...getLineProps({ line, key: i })}>
+                  {line.map((token, key) => <span {...getTokenProps({ token, key })} />)}
+                </div>
+              ))}
+            </>
+          )}
+        </Highlight>
+    )
 
     return (
-        <div className={'editor-content'}>
+        <div className="editor-content">
             <Editor
-                padding={10}
-                style={styleEditor}
                 value={questionCode}
-                highlight={code => highlight(code, languages.js)}
-                onValueChange={code => isOnChange && onSetQuestionState(code)}
+                onValueChange={() => {}}
+                highlight={highlight}
+                padding={10}
+                style={styles.root}
             />
         </div>
     )

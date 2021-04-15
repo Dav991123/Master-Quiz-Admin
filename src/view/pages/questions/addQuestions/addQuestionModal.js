@@ -117,27 +117,7 @@ const AddCourse = ({isOpenModal, setIsOpenModal}) => {
           <div className={classes.paper}>
               <form className={classes.input} noValidate autoComplete="off">
                 <div>
-                {/* <FormControl className={classes.input} >
-                   <InputLabel id="demo-mutiple-name-label">Name</InputLabel>
-                    <Select
-                      labelId="demo-mutiple-name-label"
-                      id="demo-mutiple-name"
-                      value={values.coursesType}
-                      onChange={handleChange}
-                      name="coursesType"
-                      input={<Input />}
-                    >
-                      {coursesType.map((name) => (
-                        <MenuItem 
-                          key={name} 
-                          value={name} 
-                          style={getStyles(name, theme)}>
-                          {name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl> */}
-                {/* question */}
+   
                 <TextField 
                     className={classes.input} 
                     id="outlined-basic" 
