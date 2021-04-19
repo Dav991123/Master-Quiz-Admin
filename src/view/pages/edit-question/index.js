@@ -22,7 +22,7 @@ const EditQuestion = (props) => {
         .then(snapshot => {
             const {questionsList, ...quizDataInfo} = snapshot.child(quizId).val();
             setLoading(false);
-            setQuestions(questionsList);
+            setQuestions(questionsList.slice(0, 5));
             setQuizDataInfo(quizDataInfo);
         })
     }, [quizId]);

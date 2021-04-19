@@ -34,7 +34,7 @@ const CodeEditor = ({ questionCode, isOnChange, onSetQuestionState }) => {
         <div className="editor-content">
             <Editor
                 value={questionCode}
-                onValueChange={() => {}}
+                onValueChange={value => onSetQuestionState(value)}
                 highlight={highlight}
                 padding={10}
                 style={styles.root}

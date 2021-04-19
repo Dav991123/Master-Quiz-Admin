@@ -76,9 +76,9 @@ const QuizOptionConfig = ({options, quizIndex, optionType, setOptionCount, answe
                         onChange={(value) => handlePushCorrectAnswer(quizIndex, [value.target.value])}
                     >
                         {
-                            options.map((_, index) => {
+                            options.map((item, index) => {
                                 return (
-                                    <MenuItem value={index}>Option {index + 1}</MenuItem>
+                                    <MenuItem key={item} value={index}>Option {index + 1}</MenuItem>
                                 )
                             })
                         }
@@ -100,8 +100,8 @@ const QuizOptionConfig = ({options, quizIndex, optionType, setOptionCount, answe
                             input={<Input />}
                             MenuProps={MenuProps}
                         >
-                            {options.map((_, index) => (
-                                <MenuItem key={index} value={index} style={getStyles(index, correctAnswers, theme)}>
+                            {options.map((item, index) => (
+                                <MenuItem key={item} value={index} style={getStyles(index, correctAnswers, theme)}>
                                     Option {index + 1}
                                 </MenuItem>
                             ))}
@@ -130,7 +130,7 @@ const QuizOptionConfig = ({options, quizIndex, optionType, setOptionCount, answe
                     >
                         {
                             optionsCountList.map(item => (
-                                <MenuItem value={item}>{item}</MenuItem>
+                                <MenuItem value={item} key={item}>{item}</MenuItem>
                             ))
                         }
                     </Select>
@@ -149,7 +149,7 @@ const QuizOptionConfig = ({options, quizIndex, optionType, setOptionCount, answe
                         {
                             enumConverter(optionTypes).map((item) => {
                                 return (
-                                    <MenuItem value={item.value}>{item.label}</MenuItem>
+                                    <MenuItem value={item.value} key={item}>{item.label}</MenuItem>
                                 )
                             })
                         }                  

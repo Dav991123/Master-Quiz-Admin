@@ -140,7 +140,7 @@ const QuizListItem = ({questions, setQuestions}) => {
             {
                     questions.map((quiz, quizIndex) => {
                         return (
-                            <div className="create_quiz_content">
+                            <div className="create_quiz_content" key={`${quiz.id}_${quizIndex}`}>
 
                                 <span className="section_number_info">
                                    Section {quizIndex + 1}
@@ -241,7 +241,7 @@ const QuizListItem = ({questions, setQuestions}) => {
                                     {
                                         quiz.answerList.map((item, optionIndex) => {
                                           return (
-                                            <div className="option_list">
+                                            <div className="option_list" key={`${item}-${optionIndex}_${quizIndex}`}>
                                                 <div>
                                                     <TextField 
                                                         id="standard-basic" 
