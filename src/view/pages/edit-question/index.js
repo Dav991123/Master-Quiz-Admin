@@ -27,10 +27,6 @@ const EditQuestion = (props) => {
         })
     }, [quizId]);
   
-    const handleClickVariant = (variant) => () => {
-        console.log('vbhjbjh')
-        enqueueSnackbar('This is a success message!', { variant });
-    };
     
     const handleSave = () => {
         database.ref(`/questions/${quizId}`).update({
