@@ -28,11 +28,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const styleEditor = {
-  fontFamily: '"Fira code", "Fira Mono", monospace',
-  fontSize: 20
-}
-
 const UserQuizInfoModal = ({modalData, onSetModalData}) => {
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
@@ -75,22 +70,32 @@ const UserQuizInfoModal = ({modalData, onSetModalData}) => {
            
           <div className={classes.paper}>
                 {
-                    quizList.map((item, index) => (
-                        <Paper elevation={2} style={{height: '300px'}}>
-                            {item.questionData}
-
-                            <div className={'editor-content'}>
-                              <CodeEditor 
-                                  isOnChange={true}
-                                  fontSize={20}
-                                  questionCode={item.questionData} 
-                                  onSetQuestionState={value => {
-                                      // handleCodeEditorChange(value, quizIndex)
-                                  }}
-                              />
-                            </div>
+                    quizList.map((quiz, index) => {
+                      console.log(quiz, 'item');
+                      return (
+                        <Paper elevation={2} style={{padding: '30px', margin: '20px'}}>
+                          <div className={'editor-content'}>
+                            <CodeEditor 
+                                isOnChange={true}
+                                fontSize={20}
+                                questionCode={quiz.questionData} 
+                                onSetQuestionState={value => {
+                                    // handleCodeEditorChange(value, quizIndex)
+                                }}
+                            />
+                          </div>
+                            
+                            <p>{quiz.quizDescription}</p>
+                            <ul>
+                              {
+                                quiz.answerList.map(option => (
+                                  <li>{option}</li>
+                                ))
+                              }
+                            </ul>
                         </Paper>
-                    ))
+                      )
+                    })
                         
                 }
           </div>

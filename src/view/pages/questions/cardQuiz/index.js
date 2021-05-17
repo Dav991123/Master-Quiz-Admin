@@ -20,6 +20,8 @@ import { useHistory } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import { ROUTE_CONSTANTS } from '../../../../core/constants/routeConstants';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,9 +88,8 @@ const CardQuiz = ({id, title, number, creationDate, imgUrl, description}) => {
       </CardContent>
       
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
+      <FormControlLabel control={<Switch />} label="Show Quiz" />
+
         <IconButton
           className={clsx(classes.expand)}
           onClick={handleDeleteQuiz}
